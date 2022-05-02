@@ -1,0 +1,35 @@
+.wrapper {
+	border: none;
+	width: 42px;
+	height: 42px;
+	position: relative;
+	border-radius: 50%;
+	background-color: #f9a109;
+	background-image: url("/icons/cart_base.svg");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 20px 20px;
+	cursor: pointer;
+}
+.wrapper .number {
+	position: absolute;
+	min-width: 21px;
+	height: 20px;
+	left: 70%;
+	top: -5px;
+	background-color: #eb5757;
+	border-radius: 4px;
+
+	font-family: "Quicksand";
+	font-style: normal;
+	font-weight: 500;
+	font-size: 12px;
+	line-height: 15px;
+	/* identical to box height */
+
+	color: #ffffff;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}

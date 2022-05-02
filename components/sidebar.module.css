@@ -1,0 +1,63 @@
+.wrapper {
+	padding: 37px 0px;
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 95px;
+	height: 100vh;
+	background-color: white;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}
+.menu {
+	list-style: none;
+	width: 100%;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	row-gap: 50px;
+}
+.menu li {
+	width: 100%;
+	height: 46px;
+}
+.menu li:nth-child(1) button {
+	background-image: url("/icons/list_base.svg");
+}
+.menu li:nth-child(2) button {
+	background-image: url("/icons/history_base.svg");
+}
+.menu li:nth-child(3) button {
+	background-image: url("/icons/autograph_base.svg");
+}
+.menu li button {
+	cursor: pointer;
+	width: 100%;
+	height: 100%;
+	border: none;
+	background-color: transparent;
+	position: relative;
+
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 34px 32px;
+}
+.menu li button::before {
+	content: "";
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 6px;
+	height: 100%;
+	border-radius: 0px 4px 4px 0px;
+	background-color: transparent;
+	transition: background-color 0.35s ease-in;
+}
+.menu li button:hover::before {
+	background-color: #f9a109;
+}
+.menu li .active::before {
+	background-color: #f9a109;
+}

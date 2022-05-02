@@ -1,0 +1,9 @@
+.container {
+	padding: 0 0rem;
+	background-color: #fafafe;
+	min-width: 100vw;
+	min-height: 100vh;
+}
+
+@media (max-width: 600px) {
+}

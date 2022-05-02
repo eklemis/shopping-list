@@ -1,0 +1,53 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
+  name  String?
+  items Items[]
+}
+
+model Items {
+  id                String              @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt         DateTime            @default(now())
+  name              String?
+  note              String
+  image             String
+  categories        Category?           @relation(fields: [catId], references: [id])
+  catId             String?             @db.ObjectId
+  shoppingListItems ShoppingListItems[]
+  shopListIds       String[]            @db.ObjectId
+
+}
+
+model ShoppingList {
+  id        String              @id @default(auto()) @map("_id") @db.ObjectId
+  name      String?
+  createdAt DateTime            @default(now())
+  status    ListStatus          @default(ACTIVE)
+  items     ShoppingListItems[]
+}
+
+model ShoppingListItems {
+  id             String        @id @default(auto()) @map("_id") @db.ObjectId
+  item           Items         @relation(fields: [itemId], references: [id])
+  itemId         String        @db.ObjectId
+  itemAmount     Int           @default(1)
+  shoppingList   ShoppingList? @relation(fields: [shoppingListId], references: [id])
+  shoppingListId String?       @db.ObjectId
+}
+
+enum ListStatus {
+  ACTIVE
+  COMPLETED
+  CANCELED
+}

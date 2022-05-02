@@ -1,0 +1,8 @@
+.wrapper {
+	width: 390px;
+	min-height: 100vh;
+	position: fixed;
+	padding: 0;
+	top: 0;
+	left: calc(100vw - 390px);
+}
