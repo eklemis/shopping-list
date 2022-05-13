@@ -5,6 +5,7 @@ import SidePage from "./frames/side_page";
 import ContentPage from "./frames/content_page";
 import ShoppingList from "./shopping_list";
 import NewItem from "./new_item";
+import ItemDetail from "./item_detail";
 import useSWR from "swr";
 import axios from "axios";
 import { useEffect } from "react";
@@ -19,6 +20,13 @@ export default function ItemsPage({ reloadProvider, initialOpt }) {
 		}
 	};
 	const [sidePageOpt, setSidePageOpt] = useState(initialOpt); //0: shopping list, 1: new item form, 2: item-detil
+	const [detilData, setDetilData] = useState({
+		id: "",
+		image: "",
+		name: "",
+		category: "",
+		note: "",
+	});
 	useEffect(() => {
 		setSidePageOpt(initialOpt);
 	}, [initialOpt]);
@@ -34,6 +42,14 @@ export default function ItemsPage({ reloadProvider, initialOpt }) {
 							<a
 								href="#"
 								onClick={() => {
+									console.log("item-log", item);
+									setDetilData({
+										id: item.id,
+										image: item.image,
+										name: item.name,
+										category: item.categories.name,
+										note: item.note,
+									});
 									setSidePageOpt(2);
 								}}
 							>
@@ -77,8 +93,20 @@ export default function ItemsPage({ reloadProvider, initialOpt }) {
 				</div>
 			</ContentPage>
 			<SidePage>
-				{sidePageOpt === 0 && <ShoppingList setSidePageOpt={setSidePageOpt} />}
+				{sidePageOpt === 0 && (
+					<ShoppingList
+						setSidePageOpt={setSidePageOpt}
+						reloadProvider={reloadProvider}
+					/>
+				)}
 				{sidePageOpt === 1 && <NewItem setSidePageOpt={setSidePageOpt} />}
+				{sidePageOpt === 2 && (
+					<ItemDetail
+						setSidePageOpt={setSidePageOpt}
+						{...detilData}
+						addSLItem={addSLItem}
+					/>
+				)}
 			</SidePage>
 		</Page>
 	);

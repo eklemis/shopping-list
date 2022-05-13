@@ -38,16 +38,22 @@ model ShoppingList {
 }
 
 model ShoppingListItems {
-  id             String        @id @default(auto()) @map("_id") @db.ObjectId
-  item           Items         @relation(fields: [itemId], references: [id])
-  itemId         String        @db.ObjectId
-  itemAmount     Int           @default(1)
-  shoppingList   ShoppingList? @relation(fields: [shoppingListId], references: [id])
-  shoppingListId String?       @db.ObjectId
+  id             String         @id @default(auto()) @map("_id") @db.ObjectId
+  item           Items          @relation(fields: [itemId], references: [id])
+  itemId         String         @db.ObjectId
+  itemAmount     Int            @default(1)
+  shoppingList   ShoppingList?  @relation(fields: [shoppingListId], references: [id])
+  shoppingListId String?        @db.ObjectId
+  item_status    ListItemStatus @default(ACTIVE)
 }
 
 enum ListStatus {
   ACTIVE
   COMPLETED
   CANCELED
+}
+
+enum ListItemStatus {
+  ACTIVE
+  COMPLETED
 }

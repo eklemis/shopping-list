@@ -1,0 +1,78 @@
+.backdrop {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: black;
+	opacity: 0.8;
+	z-index: 1000;
+}
+.content {
+	position: fixed;
+	padding: 35px;
+	width: 509px;
+	height: 260px;
+	background-color: white;
+	border-radius: 24px;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+	z-index: 1001;
+}
+.content button {
+	border: none;
+	cursor: pointer;
+}
+.content .close {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	width: 20px;
+	height: 20px;
+	background-image: url("/icons/close_base.svg");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 15px 15px;
+}
+.content p {
+	font-family: "Quicksand";
+	font-style: normal;
+	font-weight: 500;
+	font-size: 24px;
+	line-height: 30px;
+	max-width: 410px;
+
+	color: #34333a;
+}
+.bottom-wrapper {
+	display: flex;
+	justify-content: flex-end;
+	column-gap: 15px;
+}
+.yes {
+	background-color: #eb5757;
+	border-radius: 12px;
+	padding: 20px 30px;
+	font-family: "Quicksand";
+	font-style: normal;
+	font-weight: 700;
+	font-size: 16px;
+	line-height: 20px;
+	/* identical to box height */
+
+	color: #ffffff;
+}
+.cancel {
+	background-color: transparent;
+	border-radius: 12px;
+	padding: 20px 30px;
+	font-family: "Quicksand";
+	font-style: normal;
+	font-weight: 700;
+	font-size: 16px;
+	line-height: 20px;
+	/* identical to box height */
+
+	color: #34333a;
+}

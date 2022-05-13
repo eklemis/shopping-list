@@ -15,6 +15,26 @@
 
 	color: #000000;
 }
+.liner .hor-wrapper {
+	display: flex;
+	align-items: center;
+	column-gap: 10px;
+}
+.hor-wrapper button {
+	border: none;
+	background-color: transparent;
+	width: 25px;
+	height: 25px;
+	background-size: 24px 24px;
+	background-repeat: no-repeat;
+}
+.item-active {
+	background-image: url("/icons/checkbox_blank_base.svg");
+}
+.item-completed {
+	background-image: url("/icons/checkbox_checked_base.svg");
+}
+
 .sub {
 	height: 88%;
 	display: flex;
