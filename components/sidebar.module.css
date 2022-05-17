@@ -23,10 +23,44 @@
 .menu li {
 	width: 100%;
 	height: 46px;
+	position: relative;
 }
 .menu li:nth-child(1) button {
 	background-image: url("/icons/list_base.svg");
+	position: relative;
 }
+.menu li span {
+	opacity: 0;
+	position: absolute;
+	width: 60px;
+	height: 20px;
+	padding: 2px;
+	left: 90%;
+	top: 50%;
+	transform: translateY(-50%);
+	border-radius: 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: black;
+	color: white;
+	font-size: 12px;
+	transition: opacity ease-out 0.8s;
+}
+.menu li span::before {
+	content: "";
+	position: absolute;
+	width: 8px;
+	height: 6px;
+	background-color: black;
+	left: -3px;
+	transform: rotate(45deg);
+	border-radius: 1px;
+}
+.menu li:hover span {
+	opacity: 1;
+}
+
 .menu li:nth-child(2) button {
 	background-image: url("/icons/history_base.svg");
 }

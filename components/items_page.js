@@ -11,7 +11,12 @@ import axios from "axios";
 import isMobileScreen from "../store/screen_context";
 import { useEffect, useContext } from "react";
 
-export default function ItemsPage({ reloadProvider, initialOpt }) {
+export default function ItemsPage({
+	reloadProvider,
+	initialOpt,
+	setSidePageOpt,
+	sidePageOpt,
+}) {
 	const isMobile = useContext(isMobileScreen);
 	const addSLItem = async (itemId) => {
 		const serverResponse = await axios.post("/api/shopping_list/new_sl_item", {
@@ -21,7 +26,7 @@ export default function ItemsPage({ reloadProvider, initialOpt }) {
 			reloadProvider();
 		}
 	};
-	const [sidePageOpt, setSidePageOpt] = useState(initialOpt); //0: shopping list, 1: new item form, 2: item-detil
+
 	const [detilData, setDetilData] = useState({
 		id: "",
 		image: "",
@@ -29,42 +34,47 @@ export default function ItemsPage({ reloadProvider, initialOpt }) {
 		category: "",
 		note: "",
 	});
-	useEffect(() => {
-		setSidePageOpt(initialOpt);
-	}, [initialOpt]);
+	const [keyword, setKeyword] = useState("");
 	const fetcher = (...args) => fetch(...args).then((res) => res.json());
 	const { data, error } = useSWR("/api/items/get_all", fetcher);
 	let catComponents;
 	if (data) {
 		const getItems = (row) => {
 			if (row.items.length > 0) {
-				return row.items.map((item) => (
-					<li key={"itemEl-" + item.id} className={styles.item}>
-						<span>
-							<a
-								href="#"
-								onClick={() => {
-									console.log("item-log", item);
-									setDetilData({
-										id: item.id,
-										image: item.image,
-										name: item.name,
-										category: item.categories.name,
-										note: item.note,
-									});
-									setSidePageOpt(2);
-								}}
-							>
-								{item.name}
-							</a>
-						</span>
-						<button
-							onClick={() => {
-								addSLItem(item.id);
-							}}
-						></button>
-					</li>
-				));
+				return row.items.map((item) => {
+					if (
+						keyword?.trim() === "" ||
+						(keyword?.trim() !== "" &&
+							item.name.toLowerCase().includes(keyword.trim().toLowerCase()))
+					)
+						return (
+							<li key={"itemEl-" + item.id} className={styles.item}>
+								<span>
+									<a
+										href="#"
+										onClick={() => {
+											console.log("item-log", item);
+											setDetilData({
+												id: item.id,
+												image: item.image,
+												name: item.name,
+												category: item.categories.name,
+												note: item.note,
+											});
+											setSidePageOpt(2);
+										}}
+									>
+										{item.name}
+									</a>
+								</span>
+								<button
+									onClick={() => {
+										addSLItem(item.id);
+									}}
+								></button>
+							</li>
+						);
+				});
 			}
 			return null;
 		};
@@ -87,7 +97,14 @@ export default function ItemsPage({ reloadProvider, initialOpt }) {
 							<span>Shoppingify</span> allows you take your shopping list
 							wherever you go
 						</h1>
-						<input type="text" className={styles.search} />
+						<input
+							type="text"
+							className={styles.search}
+							value={keyword}
+							onChange={(ev) => {
+								setKeyword(ev.target.value);
+							}}
+						/>
 					</div>
 				)}
 				<div>

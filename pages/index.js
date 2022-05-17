@@ -17,6 +17,7 @@ const prisma = new PrismaClient();
 
 export default function Home({ fallback }) {
 	const [initialOpt, setInitialOpt] = useState(0);
+	const [sidePageOpt, setSidePageOpt] = useState(0); //0: shopping list, 1: new item form, 2: item-detil
 	const [isMobile, setIsMobile] = useState(false);
 
 	const [activeShopingList, setActiveShopingList] = useState({
@@ -65,13 +66,15 @@ export default function Home({ fallback }) {
 					<SideBar
 						activeMenu={activeMenu}
 						setActiveMenu={setActiveMenu}
-						setInitialOpt={setInitialOpt}
+						setSidePageOpt={setSidePageOpt}
 					/>
 					{activeMenu === 0 && (
 						<SWRConfig value={{ fallback }}>
 							<ItemsPage
 								reloadProvider={reloadProvider}
 								initialOpt={initialOpt}
+								setSidePageOpt={setSidePageOpt}
+								sidePageOpt={sidePageOpt}
 							/>
 						</SWRConfig>
 					)}
