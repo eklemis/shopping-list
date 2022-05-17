@@ -1,5 +1,12 @@
 .wrapper {
-	width: calc(100% - 390px);
-	padding: 12px 80px;
+	width: 100%;
+	padding: 12px 5px;
 	min-height: 100vh;
+	overflow-x: hidden;
+}
+@media only screen and (min-width: 600px) {
+	.wrapper {
+		width: calc(100% - 390px);
+		padding: 12px 80px;
+	}
 }

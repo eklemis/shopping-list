@@ -8,9 +8,11 @@ import NewItem from "./new_item";
 import ItemDetail from "./item_detail";
 import useSWR from "swr";
 import axios from "axios";
-import { useEffect } from "react";
+import isMobileScreen from "../store/screen_context";
+import { useEffect, useContext } from "react";
 
 export default function ItemsPage({ reloadProvider, initialOpt }) {
+	const isMobile = useContext(isMobileScreen);
 	const addSLItem = async (itemId) => {
 		const serverResponse = await axios.post("/api/shopping_list/new_sl_item", {
 			itemId: itemId,
@@ -79,35 +81,39 @@ export default function ItemsPage({ reloadProvider, initialOpt }) {
 	return (
 		<Page>
 			<ContentPage>
-				<div className={styles.header}>
-					<h1 className={styles.title}>
-						<span>Shoppingify</span> allows you take your shopping list wherever
-						you go
-					</h1>
-					<input type="text" className={styles.search} />
-				</div>
+				{!isMobile && (
+					<div className={styles.header}>
+						<h1 className={styles.title}>
+							<span>Shoppingify</span> allows you take your shopping list
+							wherever you go
+						</h1>
+						<input type="text" className={styles.search} />
+					</div>
+				)}
 				<div>
 					{error && <p>Failed load content</p>}
 					{!error && !data && <p>Fetching data...</p>}
 					{data && catComponents}
 				</div>
 			</ContentPage>
-			<SidePage>
-				{sidePageOpt === 0 && (
-					<ShoppingList
-						setSidePageOpt={setSidePageOpt}
-						reloadProvider={reloadProvider}
-					/>
-				)}
-				{sidePageOpt === 1 && <NewItem setSidePageOpt={setSidePageOpt} />}
-				{sidePageOpt === 2 && (
-					<ItemDetail
-						setSidePageOpt={setSidePageOpt}
-						{...detilData}
-						addSLItem={addSLItem}
-					/>
-				)}
-			</SidePage>
+			{!isMobile && (
+				<SidePage>
+					{sidePageOpt === 0 && (
+						<ShoppingList
+							setSidePageOpt={setSidePageOpt}
+							reloadProvider={reloadProvider}
+						/>
+					)}
+					{sidePageOpt === 1 && <NewItem setSidePageOpt={setSidePageOpt} />}
+					{sidePageOpt === 2 && (
+						<ItemDetail
+							setSidePageOpt={setSidePageOpt}
+							{...detilData}
+							addSLItem={addSLItem}
+						/>
+					)}
+				</SidePage>
+			)}
 		</Page>
 	);
 }

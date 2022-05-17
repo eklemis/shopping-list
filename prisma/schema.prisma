@@ -50,7 +50,7 @@ model ShoppingListItems {
 enum ListStatus {
   ACTIVE
   COMPLETED
-  CANCELED
+  CANCELLED
 }
 
 enum ListItemStatus {

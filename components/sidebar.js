@@ -26,7 +26,7 @@ export default function SideBar({ activeMenu, setActiveMenu, setInitialOpt }) {
 					></button>
 				</li>
 			</ul>
-			<CartButton setInitialOpt={setInitialOpt} />
+			<CartButton setInitialOpt={setInitialOpt} setActiveMenu={setActiveMenu} />
 		</div>
 	);
 }
